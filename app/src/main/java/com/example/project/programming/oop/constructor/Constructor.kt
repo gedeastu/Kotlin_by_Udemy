@@ -7,6 +7,8 @@ fun main(args: Array<String>) {
     println(medic.name)
 
     var patient = Patient("Puspita",19)
+    patient.age = 20
+    println(patient.age)
 
     var doctor = Doctor("Astu",19,"Umum")
     doctor.name = "Gede Astu"

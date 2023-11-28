@@ -2,6 +2,7 @@ package com.example.project.programming.oop.overriding
 
 fun main(args: Array<String>) {
     val medical = Medical()
+
     val paracetamol = Paracetamol()
     val doxin = Doxin()
 
