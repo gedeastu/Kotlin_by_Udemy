@@ -3,6 +3,7 @@ package com.example.project
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -86,9 +87,10 @@ fun Layouts(name: String, modifier: Modifier = Modifier) {
 fun Button(){
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
         Button(onClick = { /*TODO*/ },
-            modifier = Modifier.size(200.dp,70.dp),
+            modifier = Modifier.size(200.dp,60.dp),
             colors = ButtonDefaults.buttonColors(colorResource(id = R.color.purple_700)),
-            shape = RoundedCornerShape(10.dp)
+            shape = RoundedCornerShape(10.dp),
+            border = BorderStroke(1.dp, color = colorResource(id = R.color.red))
             )
         {
             Text(text = "Do your Magic 😱", fontSize = 15.sp)
