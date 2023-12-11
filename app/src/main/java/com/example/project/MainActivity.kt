@@ -32,10 +32,14 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
@@ -48,16 +52,25 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -69,6 +82,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -79,6 +93,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.project.ui.theme.ProjectTheme
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,8 +111,11 @@ class MainActivity : ComponentActivity() {
                     //Radio()
                     //theSwitch()
                     //theDropdown()
-                    ToastMessageComponent()
+                    //ToastMessageComponent()
                     //DropdownMenuExample01()
+                    //SnackbarComponent()
+                    //DialogMessage()
+                    TopAppBar_OptionsMenuComponent()
                 }
             }
         }
@@ -492,6 +510,196 @@ fun ToastMessageComponent(){
     }
 }
 
+@Composable
+fun SnackbarComponent(){
+    
+    val snackbarHostState = remember {
+        SnackbarHostState()
+    }
+
+    val coroutine = rememberCoroutineScope()
+
+    val context = LocalContext.current
+
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackbarHostState,
+            ){
+                Snackbar(
+                    snackbarData = it,
+                    containerColor = colorResource(id = R.color.teal_700),
+                    contentColor = Color.White,
+                    actionColor = Color.White,
+                    dismissActionContentColor = Color.White
+                )
+            }
+        },
+        content = { contentPadding->
+            Column(modifier = Modifier
+                .fillMaxSize()
+                .padding(contentPadding), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+                Button(onClick = {
+
+                    coroutine.launch {
+                        val result = snackbarHostState.showSnackbar(
+                            message = "This is the snackbar message",
+                            actionLabel = "Show the Toast",
+                            duration = SnackbarDuration.Long,
+                            withDismissAction = true
+                        )
+                        if (result == SnackbarResult.ActionPerformed){
+                            Toast.makeText(context,"Hello Welcome Back",Toast.LENGTH_LONG).show()
+                        }
+                    }
+
+                }) {
+                    Text(text = "Show the snackbar message")
+                }
+            }
+        }
+    )
+}
+
+@Composable
+fun DialogMessage(){
+    val dialogMessage = remember {
+        mutableStateOf(false)
+    }
+
+    val textColor = remember {
+        mutableStateOf(R.color.white)
+    }
+
+    val context = LocalContext.current
+
+    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+        Button(onClick = { dialogMessage.value = true }) {
+            Text(text = "Click to change color button", color = colorResource(id = textColor.value), fontSize = 18.sp)
+        }
+
+        if (dialogMessage.value){
+            AlertDialog(
+                onDismissRequest = { dialogMessage.value = true },
+                //icon = { Image(painter = painterResource(id = R.drawable.warning) , contentDescription = "Warning") },
+                title = {
+                    Row(verticalAlignment = Alignment.CenterVertically){
+                        Image(painter = painterResource(id = R.drawable.warning), contentDescription = "Warning")
+                        Spacer(modifier = Modifier.width(5.dp))
+                        Text(text = "Warning", color = Color.White)
+                    }},
+                text = { Text(text = "Do you wanna change the text color of button ? ", color = Color.White) },
+                containerColor = colorResource(id = R.color.teal_700),
+                shape = RoundedCornerShape(10.dp),
+                confirmButton = {
+                    Button(modifier = Modifier.width(100.dp),onClick = {
+
+                        dialogMessage.value = false
+                        textColor.value = R.color.red
+                        Toast.makeText(context,"The button color is changed",Toast.LENGTH_LONG).show()
+
+                    }, colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.teal_700)),
+                    )
+                    {
+                        Text(text = "YES", color = colorResource(id = R.color.white), fontSize = 18.sp)
+                    }
+                },
+                dismissButton = {
+                    Button(onClick = {
+
+                        dialogMessage.value = false
+                        //textColor.value = R.color.red
+                        Toast.makeText(context,"The button color is not changed",Toast.LENGTH_LONG).show()
+
+                    }, colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.teal_700)),
+                        modifier = Modifier.width(100.dp)
+                    )
+                    {
+                        Text(text = "NO", color = colorResource(id = R.color.white), fontSize = 18.sp)
+                    }
+                },
+            )
+        }
+    }
+}
+
+@Composable
+fun TopAppBar_OptionsMenuComponent(){
+
+    val actionText = remember {
+        mutableStateOf("Actions will be shown here")
+    }
+
+    val menuStatus = remember {
+        mutableStateOf(false)
+    }
+
+    Scaffold(topBar = {
+        TopAppBar(
+
+            actions = {
+                IconButton(onClick = { actionText.value = "the Share is Clicked" }) {
+                    Icon(Icons.Filled.Share, contentDescription = "Share")
+                }
+                IconButton(onClick = { actionText.value = "the Search is Clicked" }) {
+                    Icon(Icons.Filled.Search, contentDescription = "Search")
+                }
+                IconButton(onClick = {
+                    actionText.value = "the More is Clicked"
+                    menuStatus.value = true
+                }) {
+                    Icon(Icons.Filled.MoreVert, contentDescription = "More")
+                    DropdownMenu(expanded = menuStatus.value, onDismissRequest = { menuStatus.value=false })
+                    {
+                        DropdownMenuItem(text = { Text("Settings") }, onClick = {
+                            menuStatus.value = false
+                            actionText.value = "the Settings is Clicked"
+                        })
+                        DropdownMenuItem(text = { Text("Logout") }, onClick = {
+                            menuStatus.value = false
+                            actionText.value = "the Logout is Clicked"
+                        })
+                    }
+                }
+            },
+
+            navigationIcon = {
+                IconButton(onClick = { actionText.value = "the Navigation is Clicked" }) {
+                    Icon(Icons.Filled.Menu, contentDescription = "Menu")
+                }
+            },
+
+            title = {
+                Column{
+                    Text(text = stringResource(id = R.string.title_top_app_bar), color = colorResource(
+                        id = R.color.white
+                    ), fontSize = 20.sp)
+                    Text(text = "Subtitle", color = colorResource(id = R.color.white), fontSize = 18.sp)
+                }
+            },
+
+            colors = TopAppBarDefaults.smallTopAppBarColors(
+                containerColor = colorResource(id = R.color.teal_700),
+                actionIconContentColor = colorResource(id = R.color.white),
+                navigationIconContentColor = colorResource(id = R.color.white)
+            )
+
+        )
+    }, content = {
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .padding(it),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally) 
+        {
+            Text(text = actionText.value, color = colorResource(id = R.color.black), fontSize = 18.sp)
+        }
+    })
+}
+
+
+
+
 
 
 @Preview(showBackground = true, showSystemUi = true)
@@ -504,7 +712,10 @@ fun GreetingPreview() {
         //Radio()
         //theSwitch()
         //theDropdown()
-        ToastMessageComponent()
+        //ToastMessageComponent()
         //DropdownMenuExample01()
+        //SnackbarComponent()
+        //DialogMessage()
+        TopAppBar_OptionsMenuComponent()
     }
 }

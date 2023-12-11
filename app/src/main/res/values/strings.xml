@@ -7,4 +7,7 @@
         <item>Hard</item>
         <item>Extreme</item>
     </string-array>
+    <string name="title_top_app_bar">
+        Top App Bar
+    </string>
 </resources>
