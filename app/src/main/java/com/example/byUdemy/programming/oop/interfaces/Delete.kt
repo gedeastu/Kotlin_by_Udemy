@@ -1,4 +1,4 @@
-package com.example.project.programming.oop.interfaces
+package com.example.byUdemy.programming.oop.interfaces
 
 interface Delete {
     fun delete()

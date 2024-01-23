@@ -1,4 +1,4 @@
-package com.example.project.programming.oop.inheritance
+package com.example.byUdemy.programming.oop.inheritance
 
 class Skill {
     var damage:Double? = null

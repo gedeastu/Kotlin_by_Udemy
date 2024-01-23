@@ -1,4 +1,4 @@
-package com.example.project.programming.oop.overriding
+package com.example.byUdemy.programming.oop.overriding
 
 open class Medical {
     open fun pickUp(nameMedic : String){

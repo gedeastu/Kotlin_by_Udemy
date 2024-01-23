@@ -1,4 +1,4 @@
-package com.example.project.programming.oop.encapsulation
+package com.example.byUdemy.programming.oop.encapsulation
 
 fun main(args: Array<String>) {
     val player = Player("The Rock",35,"Rock Bottom",3000)

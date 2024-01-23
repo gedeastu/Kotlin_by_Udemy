@@ -1,4 +1,4 @@
-package com.example.project.programming.oop.inheritance
+package com.example.byUdemy.programming.oop.inheritance
 
 open class DCheroes {
     var name:String? = null

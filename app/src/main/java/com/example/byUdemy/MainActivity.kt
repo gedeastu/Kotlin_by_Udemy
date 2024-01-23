@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.example.project
+package com.example.byUdemy
 
 //import androidx.compose.material3.Button
 //import androidx.compose.material3.ButtonDefaults
@@ -92,7 +92,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.project.ui.theme.ProjectTheme
+import com.example.byUdemy.ui.theme.ProjectTheme
+import com.example.project.R
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -115,7 +116,8 @@ class MainActivity : ComponentActivity() {
                     //DropdownMenuExample01()
                     //SnackbarComponent()
                     //DialogMessage()
-                    TopAppBar_OptionsMenuComponent()
+                    //TopAppBar_OptionsMenuComponent()
+                    Navigation()
                 }
             }
         }
@@ -716,6 +718,7 @@ fun GreetingPreview() {
         //DropdownMenuExample01()
         //SnackbarComponent()
         //DialogMessage()
-        TopAppBar_OptionsMenuComponent()
+        //TopAppBar_OptionsMenuComponent()
+        Navigation()
     }
 }

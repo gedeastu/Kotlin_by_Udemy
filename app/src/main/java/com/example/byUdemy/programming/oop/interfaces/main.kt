@@ -1,4 +1,4 @@
-package com.example.project.programming.oop.interfaces
+package com.example.byUdemy.programming.oop.interfaces
 
 fun main(args: Array<String>) {
     var games = Games()

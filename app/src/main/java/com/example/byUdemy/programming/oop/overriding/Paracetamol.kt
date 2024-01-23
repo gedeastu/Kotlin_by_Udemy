@@ -1,4 +1,4 @@
-package com.example.project.programming.oop.overriding
+package com.example.byUdemy.programming.oop.overriding
 
 class Paracetamol : Medical() {
     override fun pickUp(nameMedic : String){

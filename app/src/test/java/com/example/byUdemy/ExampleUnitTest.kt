@@ -1,4 +1,4 @@
-package com.example.project
+package com.example.byUdemy
 
 import org.junit.Test
 

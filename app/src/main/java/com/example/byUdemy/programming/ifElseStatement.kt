@@ -1,4 +1,4 @@
-package com.example.project.programming
+package com.example.byUdemy.programming
 
 fun main(args: Array<String>) {
     print("how many Speed you got ?")

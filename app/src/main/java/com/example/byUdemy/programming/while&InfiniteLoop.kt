@@ -1,4 +1,4 @@
-package com.example.project.programming
+package com.example.byUdemy.programming
 
 import kotlin.random.Random
 

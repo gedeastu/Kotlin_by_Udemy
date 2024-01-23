@@ -1,4 +1,4 @@
-package com.example.project.programming.oop.encapsulation
+package com.example.byUdemy.programming.oop.encapsulation
 
 class Player{
     var name:String? =  null

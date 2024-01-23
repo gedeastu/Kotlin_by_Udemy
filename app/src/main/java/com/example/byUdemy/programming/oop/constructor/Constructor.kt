@@ -1,4 +1,4 @@
-package com.example.project.programming.oop.constructor
+package com.example.byUdemy.programming.oop.constructor
 
 fun main(args: Array<String>) {
     var medic = Medic()

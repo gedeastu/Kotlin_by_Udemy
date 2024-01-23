@@ -1,4 +1,4 @@
-package com.example.project.programming.oop.overriding
+package com.example.byUdemy.programming.oop.overriding
 
 fun main(args: Array<String>) {
     val medical = Medical()
